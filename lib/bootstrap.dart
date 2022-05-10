@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:auth_repo/auth_repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/app/app.dart';
@@ -14,12 +15,17 @@ void boostrap({required TodosApi todosApi}) {
   };
 
   final todoRepository = TodoRepository(todosApi: todosApi);
+  final authRepository = AuthRepo();
 
   runZonedGuarded(
     () async {
+      await authRepository.user.first;
       await BlocOverrides.runZoned(
           () async => runApp(
-                App(todoRepository: todoRepository),
+                App(
+                  todoRepository: todoRepository,
+                  authRepo: authRepository,
+                ),
               ),
           blocObserver: AppBlocObserver());
     },

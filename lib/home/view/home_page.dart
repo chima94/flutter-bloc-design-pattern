@@ -5,9 +5,12 @@ import 'package:todo/home/cubit/home_cubit.dart';
 import 'package:todo/home/cubit/home_state.dart';
 import 'package:todo/stats/view/stats_page.dart';
 import 'package:todo/todo_overview/view/todo_overview_page.dart';
+import 'package:todos_repository/todo_repository.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  static Page page() => const MaterialPage<void>(child: HomePage());
 
   @override
   Widget build(BuildContext context) {
