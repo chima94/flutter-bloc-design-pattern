@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-enum HomeTab { todos, stats }
+enum HomeTab { todos, stats, settings }
 
 class HomeState extends Equatable {
   const HomeState({this.tab = HomeTab.todos});

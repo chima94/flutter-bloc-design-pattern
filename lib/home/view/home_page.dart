@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/edit_todo/view/edit_todo.dart';
 import 'package:todo/home/cubit/home_cubit.dart';
 import 'package:todo/home/cubit/home_state.dart';
+import 'package:todo/settings/view/settings_page.dart';
 import 'package:todo/stats/view/stats_page.dart';
 import 'package:todo/todo_overview/view/todo_overview_page.dart';
 import 'package:todos_repository/todo_repository.dart';
@@ -31,9 +32,9 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: IndexedStack(
         index: selectedTab.index,
-        children: const [TodosOverviewPage(), StatsPage()],
+        children: const [TodosOverviewPage(), StatsPage(), SettingPage()],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         key: const Key('homeView_addTodo_floatingActionButton'),
         onPressed: () => Navigator.of(context).push(EditTodoPage.route()),
@@ -51,7 +52,11 @@ class HomeView extends StatelessWidget {
             _HomeTabButton(
                 groupValue: selectedTab,
                 value: HomeTab.stats,
-                icon: const Icon(Icons.show_chart_rounded))
+                icon: const Icon(Icons.show_chart_rounded)),
+            _HomeTabButton(
+                groupValue: selectedTab,
+                value: HomeTab.settings,
+                icon: const Icon(Icons.settings_outlined)),
           ],
         ),
       ),
