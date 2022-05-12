@@ -14,6 +14,7 @@ class TodosOverviewBloc extends Bloc<TodosOverviewEvent, TodosOverviewState> {
     on<TodosOverviewFilterChanged>(_onFilterChanged);
     on<TodosOverviewToggleAllRequested>(_onToggleAllRequested);
     on<TodosOverviewClearCompletedRequested>(_onClearCompletedRequested);
+    on<TodoRefreshFromCloud>(_onRefreshFromCloud);
   }
 
   final TodoRepository _todoRepository;
@@ -76,5 +77,18 @@ class TodosOverviewBloc extends Bloc<TodosOverviewEvent, TodosOverviewState> {
     Emitter<TodosOverviewState> emit,
   ) async {
     await _todoRepository.clearCompleted();
+  }
+
+  Future<void> _onRefreshFromCloud(
+    TodoRefreshFromCloud event,
+    Emitter<TodosOverviewState> emit,
+  ) async {
+    emit(state.copyWith(status: () => TodosOverviewStatus.loading));
+    final todos = await _todoRepository.getTodosFromCloud();
+    for (final todo in todos) {
+      print(todo);
+      await _todoRepository.saveTodo(todo);
+    }
+    emit(state.copyWith(status: () => TodosOverviewStatus.success));
   }
 }

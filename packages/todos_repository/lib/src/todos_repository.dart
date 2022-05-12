@@ -15,6 +15,8 @@ class TodoRepository {
 
   Future<int> clearCompleted() => _todosApi.clearCompleted();
 
+  Future<List<Todo>> getTodosFromCloud() => _todosApi.getTodoFromCloud();
+
   Future<int> completeAll({required bool isCompleted}) =>
       _todosApi.completeAll(completed: isCompleted);
 }

@@ -9,6 +9,7 @@ import 'package:todo/todo_overview/bloc/todo_overview_event.dart';
 import 'package:todo/todo_overview/bloc/todo_overview_state.dart';
 import 'package:todo/todo_overview/view/widget/todo_tiles.dart';
 import 'package:todo/todo_overview/view/widget/todos_overview_filter_button.dart';
+import 'package:todo/widget/dialog/loading_screen.dart';
 import 'package:todos_repository/todo_repository.dart';
 
 class TodosOverviewPage extends StatelessWidget {
@@ -49,6 +50,13 @@ class TodosOverviewView extends StatelessWidget {
                     ..hideCurrentSnackBar()
                     ..showSnackBar(const SnackBar(
                         content: Text('An error occured while loading todos')));
+                }
+
+                if (state.status == TodosOverviewStatus.loading) {
+                  LoadingScreen.instance()
+                      .show(context: context, text: 'Loading');
+                } else {
+                  LoadingScreen.instance().hide();
                 }
               }),
           BlocListener<TodosOverviewBloc, TodosOverviewState>(

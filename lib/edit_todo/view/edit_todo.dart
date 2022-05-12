@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/edit_todo/bloc/edit_todo_bloc.dart';
 import 'package:todo/edit_todo/bloc/edit_todo_event.dart';
 import 'package:todo/edit_todo/bloc/edit_todo_state.dart';
+import 'package:todo/widget/dialog/loading_screen.dart';
 import 'package:todos_repository/todo_repository.dart';
 
 class EditTodoPage extends StatelessWidget {
@@ -24,10 +25,18 @@ class EditTodoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<EditTodoBloc, EditTodoState>(
-      listenWhen: (previous, current) =>
-          previous.status != current.status &&
-          current.status != EditTodoStatus.success,
-      listener: (context, state) => Navigator.of(context).pop(),
+      listenWhen: (previous, current) => previous.status != current.status,
+      //current.status != EditTodoStatus.success,
+      listener: (context, state) {
+        if (state.status == EditTodoStatus.success) {
+          LoadingScreen.instance().hide();
+          Navigator.of(context).pop();
+        }
+
+        if (state.status == EditTodoStatus.loading) {
+          LoadingScreen.instance().show(context: context, text: 'loading');
+        }
+      },
       child: const EditTodoView(),
     );
   }

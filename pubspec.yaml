@@ -25,6 +25,8 @@ dependencies:
     path: packages/auth_repo
   form_input:
     path: packages/form_input
+  cloud_storage_todos_api:
+    path: packages/cloud_storage_todos_api
   equatable: ^2.0.3
   json_annotation: ^4.4.0
   meta: ^1.3.0

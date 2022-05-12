@@ -113,6 +113,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.14"
+  cloud_storage_todos_api:
+    dependency: "direct main"
+    description:
+      path: "packages/cloud_storage_todos_api"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   collection:
     dependency: transitive
     description:

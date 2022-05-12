@@ -54,3 +54,7 @@ class TodosOverviewToggleAllRequested extends TodosOverviewEvent {
 class TodosOverviewClearCompletedRequested extends TodosOverviewEvent {
   const TodosOverviewClearCompletedRequested();
 }
+
+class TodoRefreshFromCloud extends TodosOverviewEvent {
+  const TodoRefreshFromCloud();
+}

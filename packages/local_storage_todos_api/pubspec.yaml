@@ -19,6 +19,8 @@ dependencies:
   shared_preferences: ^2.0.7
   todos_api:
     path: ../todos_api
+  cloud_storage_todos_api:
+    path: ../cloud_storage_todos_api
 
 dev_dependencies:
   bloc_test: ^9.0.3

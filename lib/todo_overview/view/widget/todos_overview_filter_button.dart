@@ -46,7 +46,7 @@ class TodosOverviewFilterButton extends StatelessWidget {
 }
 
 @visibleForTesting
-enum TodosOverviewOption { toggleAll, clearCompleted }
+enum TodosOverviewOption { toggleAll, clearCompleted, refresh }
 
 class TodosOverviewOptionsButton extends StatelessWidget {
   const TodosOverviewOptionsButton({Key? key}) : super(key: key);
@@ -73,6 +73,9 @@ class TodosOverviewOptionsButton extends StatelessWidget {
             context
                 .read<TodosOverviewBloc>()
                 .add(const TodosOverviewClearCompletedRequested());
+            break;
+          case TodosOverviewOption.refresh:
+            context.read<TodosOverviewBloc>().add(const TodoRefreshFromCloud());
         }
       },
       itemBuilder: (context) {
@@ -82,14 +85,19 @@ class TodosOverviewOptionsButton extends StatelessWidget {
             enabled: hasTodos,
             child: Text(
               completedTodosAmount == todos.length
-                  ? 'Mark all as completed'
-                  : 'Mark all as incomplete',
+                  ? 'Mark all as Incompleted'
+                  : 'Mark all as complete',
             ),
           ),
           PopupMenuItem(
             value: TodosOverviewOption.clearCompleted,
             enabled: hasTodos && completedTodosAmount > 0,
             child: const Text('Clear completed'),
+          ),
+          const PopupMenuItem(
+            value: TodosOverviewOption.refresh,
+            enabled: true,
+            child: Text('Refresh'),
           ),
         ];
       },

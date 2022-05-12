@@ -1,0 +1,21 @@
+name: cloud_storage_todos_api
+description: firebase firestore todo storage
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  todos_api:
+    path: ../todos_api
+  firebase_auth: ^3.0.2
+  firebase_core: ^1.5.0
+  cloud_firestore: ^3.1.14
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^2.4.0

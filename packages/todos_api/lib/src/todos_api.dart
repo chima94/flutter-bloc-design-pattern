@@ -14,6 +14,8 @@ abstract class TodosApi {
   Future<int> clearCompleted();
 
   Future<int> completeAll({required bool completed});
+
+  Future<List<Todo>> getTodoFromCloud();
 }
 
 class TodoNotFoundException implements Exception {}
