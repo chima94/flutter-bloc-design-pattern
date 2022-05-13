@@ -26,7 +26,14 @@ class SettingPage extends StatelessWidget {
             _divider(),
             _item('Theme', Icons.brightness_7_outlined, theme: true),
             _divider(),
-            _item('Sign out', Icons.logout_outlined, logout: true),
+            GestureDetector(
+              onTap: () => context.read<AppBloc>().add(AppLogoutRequested()),
+              child: _item(
+                'Sign out',
+                Icons.logout_outlined,
+                logout: true,
+              ),
+            ),
           ],
         ),
       ),
@@ -81,12 +88,3 @@ Divider _divider({int height = 40}) {
     color: Colors.grey,
   );
 }
-
-  // GestureDetector(
-  //       onTap: () => context.read<AppBloc>().add(AppLogoutRequested()),
-  //       child: const Center(
-  //         child: Text(
-  //           'Settings',
-  //           style: TextStyle(color: Colors.black),
-  //         ),
-  //       ),

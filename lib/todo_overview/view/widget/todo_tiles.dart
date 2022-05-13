@@ -42,7 +42,9 @@ class TodoListTiles extends StatelessWidget {
           style: !todo.isCompleted
               ? null
               : TextStyle(
-                  color: captionColor, decoration: TextDecoration.lineThrough),
+                  color: captionColor,
+                  decoration: TextDecoration.lineThrough,
+                ),
         ),
         subtitle: Text(
           todo.description,
@@ -51,7 +53,8 @@ class TodoListTiles extends StatelessWidget {
         ),
         leading: Checkbox(
           shape: const ContinuousRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8))),
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
           value: todo.isCompleted,
           onChanged: onToggleCompleted == null
               ? null
