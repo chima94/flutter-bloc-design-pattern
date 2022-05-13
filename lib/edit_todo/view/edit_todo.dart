@@ -58,6 +58,7 @@ class EditTodoView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(isNewTodo ? 'Add Todo' : 'Edit Todo'),
+        elevation: 0,
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'save',

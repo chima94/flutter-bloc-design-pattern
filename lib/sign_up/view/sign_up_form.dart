@@ -32,20 +32,17 @@ class SignupForm extends StatelessWidget {
           LoadingScreen.instance().hide();
         }
       },
-      child: Align(
-        alignment: const Alignment(0, -1 / 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            _EmailInput(),
-            SizedBox(height: 8),
-            _PasswordInput(),
-            SizedBox(height: 8),
-            _ConfirmPasswordInput(),
-            SizedBox(height: 8),
-            _SignButton(),
-          ],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          _EmailInput(),
+          SizedBox(height: 8),
+          _PasswordInput(),
+          SizedBox(height: 8),
+          _ConfirmPasswordInput(),
+          SizedBox(height: 8),
+          _SignButton(),
+        ],
       ),
     );
   }

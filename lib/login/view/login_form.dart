@@ -29,26 +29,20 @@ class LoginForm extends StatelessWidget {
           LoadingScreen.instance().hide();
         }
       },
-      child: Align(
-        alignment: const Alignment(0, -1 / 3),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(
-                height: 16,
-              ),
-              const _EmailInput(),
-              const SizedBox(
-                height: 8,
-              ),
-              const _PasswordInput(),
-              const SizedBox(height: 8),
-              const _LoginButton(),
-              const SizedBox(height: 4),
-              _SignUpButton()
-            ],
-          ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            const _EmailInput(),
+            const SizedBox(
+              height: 8,
+            ),
+            const _PasswordInput(),
+            const SizedBox(height: 8),
+            const _LoginButton(),
+            const SizedBox(height: 4),
+            _SignUpButton()
+          ],
         ),
       ),
     );

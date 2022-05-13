@@ -27,6 +27,7 @@ class StatsView extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: const Text('Stats of Todos'),
       ),
       body: Column(

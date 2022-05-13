@@ -33,6 +33,7 @@ class TodosOverviewView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: const Text('My Todo'),
         actions: const [
           TodosOverviewFilterButton(),
