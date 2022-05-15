@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/edit_todo/bloc/edit_todo_bloc.dart';
 import 'package:todo/edit_todo/bloc/edit_todo_event.dart';
 import 'package:todo/edit_todo/bloc/edit_todo_state.dart';
+import 'package:todo/theme/app_theme.dart';
+import 'package:todo/theme/theme_bloc.dart';
 import 'package:todo/widget/dialog/loading_screen.dart';
 import 'package:todos_repository/todo_repository.dart';
 
@@ -54,11 +56,18 @@ class EditTodoView extends StatelessWidget {
     final fabBackgroundButtonTheme = theme.floatingActionButtonTheme;
     final fabBackgroundColor =
         fabBackgroundButtonTheme.backgroundColor ?? theme.colorScheme.secondary;
+    final themeData = context.select(
+      (ThemeBloc bloc) => bloc.state.themeData,
+    );
+    final appbarColor = themeData == FlutterTodosTheme.dark
+        ? Theme.of(context).scaffoldBackgroundColor
+        : null;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(isNewTodo ? 'Add Todo' : 'Edit Todo'),
-        elevation: 0,
+        elevation: 2,
+        backgroundColor: appbarColor,
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'save',

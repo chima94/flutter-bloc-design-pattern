@@ -8,6 +8,8 @@ import 'package:todo/app/bloc/app_state.dart';
 import 'package:todo/app/routes/route.dart';
 import 'package:todo/home/view/home_page.dart';
 import 'package:todo/theme/app_theme.dart';
+import 'package:todo/theme/theme_bloc.dart';
+import 'package:todo/theme/theme_state.dart';
 import 'package:todos_repository/todo_repository.dart';
 
 class App extends StatelessWidget {
@@ -43,13 +45,18 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: FlutterTodosTheme.light,
-      darkTheme: FlutterTodosTheme.dark,
-      home: FlowBuilder<AppStatus>(
-          state: context.select((AppBloc bloc) => bloc.state.status),
-          onGeneratePages: onGenerateAppViewPages),
+    return BlocProvider(
+      create: (_) => ThemeBloc(),
+      child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: state.themeData,
+          darkTheme: FlutterTodosTheme.dark,
+          home: FlowBuilder<AppStatus>(
+              state: context.select((AppBloc bloc) => bloc.state.status),
+              onGeneratePages: onGenerateAppViewPages),
+        );
+      }),
     );
   }
 }

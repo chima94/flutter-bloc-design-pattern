@@ -17,7 +17,7 @@ class SplashPage extends StatelessWidget {
       ],
     );
     return const Scaffold(
-      backgroundColor: Color(0xFF13B9FF),
+      backgroundColor: Colors.blue,
       body: Center(
         child: Text(
           'Todo APP with Bloc Design Pattern',

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/edit_todo/view/edit_todo.dart';
+import 'package:todo/theme/app_theme.dart';
+import 'package:todo/theme/theme_bloc.dart';
 import 'package:todo/todo_overview/bloc/todo_overview_bloc.dart';
 import 'package:todo/todo_overview/bloc/todo_overview_event.dart';
 import 'package:todo/todo_overview/bloc/todo_overview_state.dart';
@@ -31,10 +33,17 @@ class TodosOverviewView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = context.select(
+      (ThemeBloc bloc) => bloc.state.themeData,
+    );
+    final appbarColor = themeData == FlutterTodosTheme.dark
+        ? Theme.of(context).scaffoldBackgroundColor
+        : null;
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
+        elevation: 2,
         title: const Text('My Todo'),
+        backgroundColor: appbarColor,
         actions: const [
           TodosOverviewFilterButton(),
           TodosOverviewOptionsButton(),

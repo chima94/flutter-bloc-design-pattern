@@ -5,18 +5,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_services_binding/flutter_services_binding.dart';
 import 'package:local_storage_todos_api/local_storage_todos_api.dart';
 import 'package:todo/bootstrap.dart';
+import 'package:todo/theme/sharepreference.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
         // navigation bar color
-        statusBarColor: Color(0xFF13B9FF),
-        systemNavigationBarColor: Colors.white,
+        statusBarColor: Colors.blue,
         statusBarIconBrightness: Brightness.dark // status bar color
         ),
   );
   FlutterServicesBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await Preferences.init();
   final cloudTodoApi = CloudStorageTodosApi();
   final todosApi = LocalStorageTodosApi(
     plugin: await SharedPreferences.getInstance(),

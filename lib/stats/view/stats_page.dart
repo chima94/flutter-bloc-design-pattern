@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/stats/bloc/stats_bloc.dart';
 import 'package:todo/stats/bloc/stats_event.dart';
+import 'package:todo/theme/app_theme.dart';
+import 'package:todo/theme/theme_bloc.dart';
 import 'package:todos_repository/todo_repository.dart';
 
 class StatsPage extends StatelessWidget {
@@ -25,10 +27,18 @@ class StatsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<StatsBloc>().state;
     final textTheme = Theme.of(context).textTheme;
+    final themeData = context.select(
+      (ThemeBloc bloc) => bloc.state.themeData,
+    );
+    final appbarColor = themeData == FlutterTodosTheme.dark
+        ? Theme.of(context).scaffoldBackgroundColor
+        : null;
+
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
+        elevation: 2,
         title: const Text('Stats of Todos'),
+        backgroundColor: appbarColor,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
