@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:todos_api/src/models/todo.dart';
 
 Todo TodoFromJson(Map<String, dynamic> json) => Todo(
@@ -5,6 +7,9 @@ Todo TodoFromJson(Map<String, dynamic> json) => Todo(
       title: json['title'] as String,
       description: json['description'] as String? ?? '',
       isCompleted: json['isCompleted'] as bool? ?? false,
+      date: json['date'] as String? ?? '',
+      startTime: json['startTime'] as String? ?? '',
+      repeat: json['repeat'] as String? ?? '',
     );
 
 Map<String, dynamic> TodoToJson(Todo instance) => <String, dynamic>{
@@ -12,4 +17,7 @@ Map<String, dynamic> TodoToJson(Todo instance) => <String, dynamic>{
       'title': instance.title,
       'description': instance.description,
       'isCompleted': instance.isCompleted,
+      'date': instance.date,
+      'startTime': instance.startTime,
+      'repeat': instance.repeat
     };

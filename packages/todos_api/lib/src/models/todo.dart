@@ -7,12 +7,15 @@ import 'package:uuid/uuid.dart';
 @immutable
 @JsonSerializable()
 class Todo extends Equatable {
-  Todo(
-      {String? id,
-      required this.title,
-      this.description = '',
-      this.isCompleted = false})
-      : assert(
+  Todo({
+    String? id,
+    required this.title,
+    this.description = '',
+    this.isCompleted = false,
+    this.date = '',
+    this.startTime = '',
+    this.repeat = '',
+  })  : assert(
           id == null || id.isNotEmpty,
           'id can not be null and should be empty',
         ),
@@ -26,25 +29,41 @@ class Todo extends Equatable {
 
   final bool isCompleted;
 
+  final String date;
+
+  final String startTime;
+
+  final String repeat;
+
   Todo copyWith({
     String? id,
     String? title,
     String? description,
     bool? isCompleted,
+    String? date,
+    String? startTime,
+    String? repeat,
   }) {
     return Todo(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      isCompleted: isCompleted ?? this.isCompleted,
-    );
+        id: id ?? this.id,
+        title: title ?? this.title,
+        description: description ?? this.description,
+        isCompleted: isCompleted ?? this.isCompleted,
+        date: date ?? this.date,
+        startTime: startTime ?? this.startTime,
+        repeat: repeat ?? this.repeat);
   }
 
   static Todo fromJson(JsonMap json) => TodoFromJson(json);
   JsonMap toJson() => TodoToJson(this);
 
   @override
-  List<Object> get props => [id, title, description, isCompleted];
+  List<Object> get props => [
+        id,
+        title,
+        description,
+        isCompleted,
+      ];
 }
 
 typedef JsonMap = Map<String, dynamic>;

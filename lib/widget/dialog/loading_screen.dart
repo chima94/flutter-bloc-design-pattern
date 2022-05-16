@@ -45,7 +45,8 @@ class LoadingScreen {
                 maxWidth: size.width * 0.8,
                 minWidth: size.width * 0.5),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(10.0)),
+                color: Theme.of(context).backgroundColor,
+                borderRadius: BorderRadius.circular(10.0)),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: SingleChildScrollView(

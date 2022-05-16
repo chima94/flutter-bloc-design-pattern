@@ -9,6 +9,7 @@ import 'package:todo/theme/theme_bloc.dart';
 import 'package:todo/todo_overview/bloc/todo_overview_bloc.dart';
 import 'package:todo/todo_overview/bloc/todo_overview_event.dart';
 import 'package:todo/todo_overview/bloc/todo_overview_state.dart';
+import 'package:todo/todo_overview/view/widget/date_task_bar.dart';
 import 'package:todo/todo_overview/view/widget/todo_tiles.dart';
 import 'package:todo/todo_overview/view/widget/todos_overview_filter_button.dart';
 import 'package:todo/widget/dialog/loading_screen.dart';
@@ -116,6 +117,7 @@ class TodosOverviewView extends StatelessWidget {
           return CupertinoScrollbar(
             child: ListView(
               children: [
+                const AddDateTaskBar(),
                 for (final todo in state.filteredTodos)
                   TodoListTiles(
                     todo: todo,
