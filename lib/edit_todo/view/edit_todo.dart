@@ -162,21 +162,28 @@ class _Schedule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedDate = DateTime.now();
-    final startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
+    final date = context.select((EditTodoBloc bloc) => bloc.state.date);
+    final startTime =
+        context.select((EditTodoBloc bloc) => bloc.state.startTime);
+    final repeat = context.select((EditTodoBloc bloc) => bloc.state.repeat);
+    final dateHint = DateTime.now();
+    final startTimeHint = startTime == ''
+        ? DateFormat('hh:mm a').format(DateTime.now()).toString()
+        : startTime;
+
     final repeatList = <String>['None', 'Daily', 'weekly', 'monthly'];
-    var _selectedRepeat = 'None';
+    final repeatHint = repeat == '' ? 'None' : repeat;
 
     return Column(
       children: [
         _ScheduleInputField(
           title: 'Date',
-          hint: DateFormat.yMd().format(selectedDate),
+          hint: date == '' ? DateFormat.yMd().format(dateHint) : date,
           widget: IconButton(
             onPressed: () {
               showDateFromUSer(context, (date) {
                 final dateTime = DateFormat.yMd().format(date);
-                print(dateTime);
+                context.read<EditTodoBloc>().add(EditTodoDateChanged(dateTime));
               });
             },
             icon: const Icon(Icons.calendar_today_outlined),
@@ -184,10 +191,14 @@ class _Schedule extends StatelessWidget {
         ),
         _ScheduleInputField(
           title: 'StartTime',
-          hint: startTime,
+          hint: startTimeHint,
           widget: IconButton(
             onPressed: () {
-              getTimeFromUser(context, startTime, (time) {});
+              getTimeFromUser(context, startTimeHint, (time) {
+                context
+                    .read<EditTodoBloc>()
+                    .add(EditTodoStartTimeChanged(time));
+              });
             },
             icon: const Icon(
               Icons.access_time_rounded,
@@ -196,7 +207,7 @@ class _Schedule extends StatelessWidget {
         ),
         _ScheduleInputField(
             title: 'Repeat',
-            hint: _selectedRepeat,
+            hint: repeatHint,
             widget: DropdownButton(
               icon: const Icon(
                 Icons.keyboard_arrow_down,
@@ -215,7 +226,11 @@ class _Schedule extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyText1),
                 );
               }).toList(),
-              onChanged: (String? newValue) {},
+              onChanged: (String? newValue) {
+                context
+                    .read<EditTodoBloc>()
+                    .add(EditTodoRepeatChanged(newValue!));
+              },
             )),
       ],
     );

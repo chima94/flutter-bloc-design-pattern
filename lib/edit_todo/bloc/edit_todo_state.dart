@@ -11,16 +11,23 @@ extension EditTodoStatusX on EditTodoStatus {
 }
 
 class EditTodoState extends Equatable {
-  const EditTodoState(
-      {this.status = EditTodoStatus.initial,
-      this.initialTodo,
-      this.title = '',
-      this.description = ''});
+  const EditTodoState({
+    this.status = EditTodoStatus.initial,
+    this.initialTodo,
+    this.title = '',
+    this.description = '',
+    this.date = '',
+    this.repeat = '',
+    this.startTime = '',
+  });
 
   final EditTodoStatus status;
   final Todo? initialTodo;
   final String title;
   final String description;
+  final String date;
+  final String startTime;
+  final String repeat;
 
   bool get isNewTodo => initialTodo == null;
 
@@ -29,14 +36,29 @@ class EditTodoState extends Equatable {
     Todo? initialTodo,
     String? title,
     String? description,
+    String? date,
+    String? startTime,
+    String? repeat,
   }) {
     return EditTodoState(
-        status: status ?? this.status,
-        initialTodo: initialTodo ?? this.initialTodo,
-        title: title ?? this.title,
-        description: description ?? this.description);
+      status: status ?? this.status,
+      initialTodo: initialTodo ?? this.initialTodo,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      date: date ?? this.date,
+      startTime: startTime ?? this.startTime,
+      repeat: repeat ?? this.repeat,
+    );
   }
 
   @override
-  List<Object?> get props => [status, initialTodo, title, description];
+  List<Object?> get props => [
+        status,
+        initialTodo,
+        title,
+        description,
+        date,
+        startTime,
+        repeat,
+      ];
 }

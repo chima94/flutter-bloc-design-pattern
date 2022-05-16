@@ -58,3 +58,12 @@ class TodosOverviewClearCompletedRequested extends TodosOverviewEvent {
 class TodoRefreshFromCloud extends TodosOverviewEvent {
   const TodoRefreshFromCloud();
 }
+
+class TodoOverviewDateTimeChanged extends TodosOverviewEvent {
+  const TodoOverviewDateTimeChanged(this.date);
+
+  final DateTime date;
+
+  @override
+  List<Object> get props => [date];
+}

@@ -9,29 +9,34 @@ class TodosOverviewState extends Equatable {
       {this.status = TodosOverviewStatus.initial,
       this.todos = const [],
       this.filter = TodosViewFilter.all,
-      this.lastDeletedTodo});
+      this.lastDeletedTodo,
+      this.date});
 
   final TodosOverviewStatus status;
   final List<Todo> todos;
   final TodosViewFilter filter;
   final Todo? lastDeletedTodo;
+  final DateTime? date;
 
   Iterable<Todo> get filteredTodos => filter.applyAll(todos);
 
-  TodosOverviewState copyWith(
-      {TodosOverviewStatus Function()? status,
-      List<Todo> Function()? todos,
-      TodosViewFilter Function()? filter,
-      Todo? Function()? lastDeletedTodo}) {
+  TodosOverviewState copyWith({
+    TodosOverviewStatus Function()? status,
+    List<Todo> Function()? todos,
+    TodosViewFilter Function()? filter,
+    Todo? Function()? lastDeletedTodo,
+    DateTime? Function()? date,
+  }) {
     return TodosOverviewState(
       status: status != null ? status() : this.status,
       todos: todos != null ? todos() : this.todos,
       filter: filter != null ? filter() : this.filter,
       lastDeletedTodo:
           lastDeletedTodo != null ? lastDeletedTodo() : this.lastDeletedTodo,
+      date: date != null ? date() : this.date,
     );
   }
 
   @override
-  List<Object?> get props => [status, todos, filter, lastDeletedTodo];
+  List<Object?> get props => [status, todos, filter, lastDeletedTodo, date];
 }

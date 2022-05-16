@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:todo/edit_todo/view/edit_todo.dart';
 import 'package:todo/theme/app_theme.dart';
 import 'package:todo/theme/theme_bloc.dart';
@@ -40,6 +41,9 @@ class TodosOverviewView extends StatelessWidget {
     final appbarColor = themeData == FlutterTodosTheme.dark
         ? Theme.of(context).scaffoldBackgroundColor
         : null;
+    final date = context.select((TodosOverviewBloc bloc) => bloc.state.date);
+    final selectedDate = date ?? DateTime.now();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
@@ -114,33 +118,95 @@ class TodosOverviewView extends StatelessWidget {
               );
             }
           }
-          return CupertinoScrollbar(
-            child: ListView(
-              children: [
-                const AddDateTaskBar(),
-                for (final todo in state.filteredTodos)
-                  TodoListTiles(
-                    todo: todo,
-                    onToggleCompleted: (isCompleted) {
-                      context.read<TodosOverviewBloc>().add(
-                          TodosOverviewTodoCompletionToggled(
-                              todo: todo, isCompleted: isCompleted));
-                    },
-                    onDismissed: (_) {
-                      context
-                          .read<TodosOverviewBloc>()
-                          .add(TodosOverviewTodoDeleted(todo));
-                    },
-                    onTap: () {
-                      Navigator.of(context)
-                          .push(EditTodoPage.route(initialTodo: todo));
-                    },
-                  )
-              ],
-            ),
+          return Column(
+            children: [
+              AddDateTaskBar(
+                dateTime: (date) {
+                  context
+                      .read<TodosOverviewBloc>()
+                      .add(TodoOverviewDateTimeChanged(date));
+                },
+              ),
+              const Divider(
+                height: 8,
+                thickness: 1,
+              ),
+              Expanded(
+                child: ListView.builder(
+                    itemCount: state.filteredTodos.length,
+                    itemBuilder: (_, index) {
+                      final todo = state.filteredTodos.toList()[index];
+                      if (todo.repeat == 'Daily') {
+                        return TodoListTiles(
+                          todo: todo,
+                          onToggleCompleted: (isCompleted) {
+                            context.read<TodosOverviewBloc>().add(
+                                TodosOverviewTodoCompletionToggled(
+                                    todo: todo, isCompleted: isCompleted));
+                          },
+                          onDismissed: (_) {
+                            context
+                                .read<TodosOverviewBloc>()
+                                .add(TodosOverviewTodoDeleted(todo));
+                          },
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(EditTodoPage.route(initialTodo: todo));
+                          },
+                        );
+                      }
+
+                      if (todo.date == DateFormat.yMd().format(date!)) {
+                        return TodoListTiles(
+                          todo: todo,
+                          onToggleCompleted: (isCompleted) {
+                            context.read<TodosOverviewBloc>().add(
+                                TodosOverviewTodoCompletionToggled(
+                                    todo: todo, isCompleted: isCompleted));
+                          },
+                          onDismissed: (_) {
+                            context
+                                .read<TodosOverviewBloc>()
+                                .add(TodosOverviewTodoDeleted(todo));
+                          },
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(EditTodoPage.route(initialTodo: todo));
+                          },
+                        );
+                      } else {
+                        return Container();
+                      }
+                    }),
+              ),
+            ],
           );
         }),
       ),
     );
   }
 }
+
+
+
+// CupertinoScrollbar(
+//             child: ListView(
+//               children: [
+//                 AddDateTaskBar(
+//                   dateTime: (date) {
+//                     context
+//                         .read<TodosOverviewBloc>()
+//                         .add(TodoOverviewDateTimeChanged(date));
+//                   },
+//                 ),
+//                 const Divider(
+//                   height: 8,
+//                   thickness: 1,
+//                 ),
+//                 for (final todo in state.filteredTodos)
+                  
+//                   
+                  
+//               ],
+//             ),
+//           );

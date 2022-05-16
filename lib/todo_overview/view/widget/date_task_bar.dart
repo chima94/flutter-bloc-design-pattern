@@ -2,7 +2,8 @@ import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 
 class AddDateTaskBar extends StatelessWidget {
-  const AddDateTaskBar({Key? key}) : super(key: key);
+  const AddDateTaskBar({Key? key, this.dateTime}) : super(key: key);
+  final Function(DateTime)? dateTime;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,9 @@ class AddDateTaskBar extends StatelessWidget {
           fontWeight: FontWeight.w600,
           color: Colors.grey,
         ),
-        onDateChange: (date) {},
+        onDateChange: (date) {
+          dateTime!(date);
+        },
       ),
     );
   }
