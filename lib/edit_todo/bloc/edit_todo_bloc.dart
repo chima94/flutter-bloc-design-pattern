@@ -62,6 +62,7 @@ class EditTodoBloc extends Bloc<EditTodoEvent, EditTodoState> {
       date: state.date,
       startTime: state.startTime,
       repeat: state.repeat,
+      notificationId: state.title.length + state.description.length,
     );
 
     try {

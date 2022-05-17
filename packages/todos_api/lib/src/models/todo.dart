@@ -15,6 +15,7 @@ class Todo extends Equatable {
     this.date = '',
     this.startTime = '',
     this.repeat = '',
+    this.notificationId = 0,
   })  : assert(
           id == null || id.isNotEmpty,
           'id can not be null and should be empty',
@@ -35,6 +36,8 @@ class Todo extends Equatable {
 
   final String repeat;
 
+  final int notificationId;
+
   Todo copyWith({
     String? id,
     String? title,
@@ -43,15 +46,18 @@ class Todo extends Equatable {
     String? date,
     String? startTime,
     String? repeat,
+    int? notificationId,
   }) {
     return Todo(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        description: description ?? this.description,
-        isCompleted: isCompleted ?? this.isCompleted,
-        date: date ?? this.date,
-        startTime: startTime ?? this.startTime,
-        repeat: repeat ?? this.repeat);
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      isCompleted: isCompleted ?? this.isCompleted,
+      date: date ?? this.date,
+      startTime: startTime ?? this.startTime,
+      repeat: repeat ?? this.repeat,
+      notificationId: notificationId ?? this.notificationId,
+    );
   }
 
   static Todo fromJson(JsonMap json) => TodoFromJson(json);

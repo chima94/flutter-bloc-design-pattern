@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo/service/notification_service.dart';
 import 'package:todo/todo_overview/bloc/todo_overview_bloc.dart';
 import 'package:todo/todo_overview/bloc/todo_overview_event.dart';
 import 'package:todo/todo_overview/model/todo_view_filter.dart';
@@ -70,6 +71,7 @@ class TodosOverviewOptionsButton extends StatelessWidget {
                 .add(const TodosOverviewToggleAllRequested());
             break;
           case TodosOverviewOption.clearCompleted:
+            NotifyHelper.cancelAllNotification();
             context
                 .read<TodosOverviewBloc>()
                 .add(const TodosOverviewClearCompletedRequested());

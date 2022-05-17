@@ -109,7 +109,7 @@ class _LoginButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            primary: const Color(0xFFFFD600),
+            primary: Colors.blue,
           ),
           child: const Text('Login'),
         );
@@ -125,9 +125,9 @@ class _SignUpButton extends StatelessWidget {
     return TextButton(
       key: const Key('loginForm_createAccount_flatButton'),
       onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),
-      child: Text(
+      child: const Text(
         'CREATE ACCOUNT',
-        style: TextStyle(color: theme.primaryColor),
+        style: TextStyle(color: Colors.blue),
       ),
     );
   }

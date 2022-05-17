@@ -125,7 +125,7 @@ class _SignButton extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            primary: Colors.orangeAccent,
+            primary: Colors.blue,
           ),
           onPressed: state.status.isValidated
               ? () => context.read<SignUpCubit>().signUpFormSubmitted()

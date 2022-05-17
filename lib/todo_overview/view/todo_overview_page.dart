@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:todo/edit_todo/view/edit_todo.dart';
+import 'package:todo/service/notification_service.dart';
 import 'package:todo/theme/app_theme.dart';
 import 'package:todo/theme/theme_bloc.dart';
 import 'package:todo/todo_overview/bloc/todo_overview_bloc.dart';
@@ -121,10 +122,10 @@ class TodosOverviewView extends StatelessWidget {
           return Column(
             children: [
               AddDateTaskBar(
-                dateTime: (date) {
+                dateTime: (sDate) {
                   context
                       .read<TodosOverviewBloc>()
-                      .add(TodoOverviewDateTimeChanged(date));
+                      .add(TodoOverviewDateTimeChanged(sDate));
                 },
               ),
               const Divider(
@@ -137,14 +138,27 @@ class TodosOverviewView extends StatelessWidget {
                     itemBuilder: (_, index) {
                       final todo = state.filteredTodos.toList()[index];
                       if (todo.repeat == 'Daily') {
+                        final date = DateFormat.jm().parse(todo.startTime);
+                        var myTime = DateFormat('HH:mm').format(date);
+                        NotifyHelper.scheduledNotification(
+                          int.parse(myTime.toString().split(':')[0]),
+                          int.parse(myTime.toString().split(':')[1]),
+                          todo,
+                        );
                         return TodoListTiles(
                           todo: todo,
                           onToggleCompleted: (isCompleted) {
-                            context.read<TodosOverviewBloc>().add(
-                                TodosOverviewTodoCompletionToggled(
-                                    todo: todo, isCompleted: isCompleted));
+                            context
+                                .read<TodosOverviewBloc>()
+                                .add(TodosOverviewTodoCompletionToggled(
+                                  todo: todo,
+                                  isCompleted: isCompleted,
+                                ));
                           },
                           onDismissed: (_) {
+                            NotifyHelper.cancelNotification(
+                              todo.notificationId,
+                            );
                             context
                                 .read<TodosOverviewBloc>()
                                 .add(TodosOverviewTodoDeleted(todo));
@@ -156,15 +170,21 @@ class TodosOverviewView extends StatelessWidget {
                         );
                       }
 
-                      if (todo.date == DateFormat.yMd().format(date!)) {
+                      if (todo.date == DateFormat.yMd().format(selectedDate)) {
                         return TodoListTiles(
                           todo: todo,
                           onToggleCompleted: (isCompleted) {
-                            context.read<TodosOverviewBloc>().add(
-                                TodosOverviewTodoCompletionToggled(
-                                    todo: todo, isCompleted: isCompleted));
+                            context
+                                .read<TodosOverviewBloc>()
+                                .add(TodosOverviewTodoCompletionToggled(
+                                  todo: todo,
+                                  isCompleted: isCompleted,
+                                ));
                           },
                           onDismissed: (_) {
+                            NotifyHelper.cancelNotification(
+                              todo.notificationId,
+                            );
                             context
                                 .read<TodosOverviewBloc>()
                                 .add(TodosOverviewTodoDeleted(todo));

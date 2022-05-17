@@ -10,6 +10,7 @@ Todo TodoFromJson(Map<String, dynamic> json) => Todo(
       date: json['date'] as String? ?? '',
       startTime: json['startTime'] as String? ?? '',
       repeat: json['repeat'] as String? ?? '',
+      notificationId: json['notificationId'] as int? ?? 0,
     );
 
 Map<String, dynamic> TodoToJson(Todo instance) => <String, dynamic>{
@@ -19,5 +20,6 @@ Map<String, dynamic> TodoToJson(Todo instance) => <String, dynamic>{
       'isCompleted': instance.isCompleted,
       'date': instance.date,
       'startTime': instance.startTime,
-      'repeat': instance.repeat
+      'repeat': instance.repeat,
+      'notificationId': instance.notificationId,
     };
