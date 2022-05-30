@@ -9,6 +9,7 @@ import 'package:todo/service/notification_service.dart';
 import 'package:todo/theme/sharepreference.dart';
 
 Future<void> main() async {
+  FlutterServicesBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
         // navigation bar color
@@ -16,7 +17,10 @@ Future<void> main() async {
         statusBarIconBrightness: Brightness.dark // status bar color
         ),
   );
-  FlutterServicesBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await Firebase.initializeApp();
   await Preferences.init();
   await NotifyHelper.initializeNotification();

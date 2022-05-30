@@ -5,6 +5,7 @@ import 'package:todo/app/bloc/app_event.dart';
 import 'package:todo/theme/app_theme.dart';
 import 'package:todo/theme/theme_bloc.dart';
 import 'package:todo/theme/theme_event.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -39,10 +40,19 @@ class SettingPage extends StatelessWidget {
               textStyle: textStyle,
             ),
             _divider(),
-            _item(
-              'Github repo',
-              Icons.engineering_outlined,
-              textStyle: textStyle,
+            GestureDetector(
+              onTap: () async {
+                final url = Uri.parse(
+                    'https://github.com/chima94/flutter-bloc-design-pattern');
+                await launchUrl(
+                  url,
+                );
+              },
+              child: _item(
+                'Github repo',
+                Icons.engineering_outlined,
+                textStyle: textStyle,
+              ),
             ),
             _divider(),
             _item(

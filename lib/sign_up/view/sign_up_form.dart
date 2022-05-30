@@ -104,11 +104,12 @@ class _ConfirmPasswordInput extends StatelessWidget {
                 .confirmedPasswordChanged(confirmPassword),
             obscureText: true,
             decoration: InputDecoration(
-                labelText: 'confirm password',
-                helperText: '',
-                errorText: state.confirmedPassword.invalid
-                    ? 'passwords do not match'
-                    : null),
+              labelText: 'confirm password',
+              helperText: '',
+              errorText: state.confirmedPassword.invalid
+                  ? 'passwords do not match'
+                  : null,
+            ),
           );
         });
   }

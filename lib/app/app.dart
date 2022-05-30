@@ -53,8 +53,9 @@ class AppView extends StatelessWidget {
           theme: state.themeData,
           darkTheme: FlutterTodosTheme.dark,
           home: FlowBuilder<AppStatus>(
-              state: context.select((AppBloc bloc) => bloc.state.status),
-              onGeneratePages: onGenerateAppViewPages),
+            state: context.select((AppBloc bloc) => bloc.state.status),
+            onGeneratePages: onGenerateAppViewPages,
+          ),
         );
       }),
     );

@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     
    <application
-        android:label="${appName}"
+        android:label="Cloud Based Todo App"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
